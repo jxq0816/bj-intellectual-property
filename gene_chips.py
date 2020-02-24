@@ -12,7 +12,6 @@ def fun(browser,file):
         url=li.find_element_by_name('v_TI')
         num=li.find_element_by_class_name('num').text
         file.write(str(num)+',')
-
         href=url.get_attribute("href")
         name=url.text
         file.write(name+',')
@@ -27,11 +26,11 @@ if __name__ == '__main__':
     browser = webdriver.Chrome(executable_path=chrome_drive)
     browser.get('http://search.beijingip.cn/search/search/result?s=%E5%9F%BA%E5%9B%A0%E8%8A%AF%E7%89%87')
     browser.find_element_by_link_text('50').click()
-    for page_no in range(2,273):
+    for page_no in range(1,273):
+        print(page_no)
         fun(browser,file)
         js = "window.scrollTo(10000,10000);"
         browser.execute_script(js)
-        print(page_no)
         browser.find_element_by_class_name('next').click()
         time.sleep(1)
     browser.close()
