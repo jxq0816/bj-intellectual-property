@@ -23,7 +23,7 @@ if __name__ == '__main__':
     browser = webdriver.Chrome(executable_path=chrome_drive)
     browser.get('http://search.beijingip.cn/search/search/result?s=%E5%9F%BA%E5%9B%A0%E8%8A%AF%E7%89%87')
     browser.find_element_by_link_text('50').click()
-    for page_no in range(1,273):
+    for page_no in range(1,272):
         print(page_no)
         fun(browser,file)
         # js = "window.scrollTo(10000,10000);"
