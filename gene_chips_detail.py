@@ -7,7 +7,6 @@ import requests
 from selenium import webdriver
 from datetime import datetime
 
-
 def fun(browser, file, no, name, url):
     time.sleep(3)
     s = requests.Session()
@@ -17,22 +16,27 @@ def fun(browser, file, no, name, url):
     for cookie in cookies:
         s.cookies.set(cookie['name'], cookie['value'])
     browser.get(url)
-    summary=browser.find_element_by_class_name('patent_b').find_element_by_class_name('c').text.strip()
-    rs=no+'|'+name+'|'+summary
-    trs=browser.find_element_by_id('inid').find_elements_by_tag_name('tr')
-    i=1
-    for tr in trs:
-        if i==3 or i==4 or i==5:
-            td=tr.find_element_by_tag_name('td')
-            rs=rs+'|'+td.text
-        i=i+1
-    rs=rs+'|'+browser.find_element_by_id('claims').text.replace(" ", "").replace("\n", "")+'\n'
-    file.write(rs)
+    try:
+        summary=browser.find_element_by_class_name('patent_b').find_element_by_class_name('c').text.strip()
+        rs=no+'|'+name+'|'+summary
+        trs=browser.find_element_by_id('inid').find_elements_by_tag_name('tr')
+        i=1
+        for tr in trs:
+            if i==3 or i==4 or i==5:
+                td=tr.find_element_by_tag_name('td')
+                rs=rs+'|'+td.text
+            i=i+1
+        rs=rs+'|'+browser.find_element_by_id('claims').text.replace(" ", "").replace("\n", "")+'\n'
+        file.write(rs)
+    except BaseException as e:
+        print('BaseException:', e)
+    finally:
+        file.flush()
 
 if __name__ == '__main__':
     chrome_drive = '/Users/jiangxingqi/Sina/chromedriver'
     browser = webdriver.Chrome(executable_path=chrome_drive)
-    file = open('rs4.csv', 'w')
+    file = open('rs9.csv', 'w')
     sFileName = 'url_list2.csv'
     with open(sFileName, newline='', encoding='UTF-8') as csvfile:
         rows = csv.reader(csvfile)
