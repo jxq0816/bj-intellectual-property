@@ -36,8 +36,8 @@ def fun(browser, file, no, name, url):
 if __name__ == '__main__':
     chrome_drive = '/Users/jiangxingqi/Sina/chromedriver'
     browser = webdriver.Chrome(executable_path=chrome_drive)
-    file = open('rs9.csv', 'w')
-    sFileName = 'url_list2.csv'
+    file = open('rs.csv', 'w')
+    sFileName = 'urls.csv'
     with open(sFileName, newline='', encoding='UTF-8') as csvfile:
         rows = csv.reader(csvfile)
         for row in rows:
@@ -51,6 +51,6 @@ if __name__ == '__main__':
                 except BaseException as e:
                     print('BaseException:', e)
                 finally:
-                    print("get success")
+                    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
     browser.close()
     file.close()
